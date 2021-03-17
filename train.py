@@ -118,6 +118,9 @@ def build_flowers_dataset(
     Returns:
         tf.data.Dataset
     """
+    # Load the dataset from file, fix the seed so we get a deterministic train/test split
+    # Note that the spec sheet asked to generate the split using sklearn. I decided to use the native keras function
+    # to avoid a bunch of expensive re-packaging of the dataset.
     dataset = tf.keras.preprocessing.image_dataset_from_directory(
         data_dir, batch_size=batch_size, image_size=image_size, seed=1, validation_split=0.2, subset=split
     )
@@ -141,13 +144,6 @@ def main():
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--config-id", help="The  ID of the config to use", type=str, required=True)
-    parser.add_argument("--cache-dir", help="Directory to cache dataset to", type=Path)
-    parser.add_argument(
-        "--log-level",
-        help="Set the logger level",
-        choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
-        default="INFO",
-    )
     args = parser.parse_args()
 
     config = Config(**CONFIG[args.config_id])

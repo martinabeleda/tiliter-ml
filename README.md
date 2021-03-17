@@ -53,7 +53,7 @@ python train.py --config-id mnist
 
 ### Flowers
 
-The existing parameters train the model for 11 epochs until we start to overfit with an accuracy of `0.5984` on the test set.
+The existing parameters train the model for 11 epochs until we start to overfit with an accuracy of `0.7002` on the test set.
 
 ```bash
 python train.py --config-id flowers
